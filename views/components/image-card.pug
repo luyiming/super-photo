@@ -1,0 +1,12 @@
+mixin image-card(img_src, title)
+  .col-lg-4.col-md-6.mb-4
+    .card.h-100.shadow-sm
+      //- a(href='#')
+      //-   img.card-img-top(src= img_src, alt='')
+      img.card-img-top(src= img_src, alt='', style="cursor: pointer;", data-toggle='modal', data-target='#sp-image-modal')
+      .card-body
+        h4.card-title
+          a(href='#')= title
+        p.card-text Photo description bala bala bala bala.
+      .card-footer
+        small.text-muted &starf; &starf; &starf; &starf; &star;

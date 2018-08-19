@@ -1,0 +1,44 @@
+extends layout.pug
+
+block content
+  .container
+    .row
+      .col-lg-3
+        h1.my-4 SuperPhoto
+        // Search widget
+        include components/search-widget
+        // Top places widget
+        include components/top-places-widget
+        // Custom widget
+        include components/custom-widget
+      // /.col-lg-3
+      .col-lg-9
+        // Title
+        h1.mt-4 Post Title
+        // Author
+        p.lead by
+          |
+          |
+          a(href='#') Start Bootstrap
+        hr
+        // Date/Time
+        p Posted on January 1, 2018 at 12:00 PM
+        hr
+        // Preview Image
+        img.img-fluid.rounded(src='http://placehold.it/900x300', alt='')
+        hr
+        // Post Content
+        p.lead Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        blockquote.blockquote
+          p.mb-0 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+          footer.blockquote-footer Someone famous in
+            cite(title='Source Title') Source Title
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        hr
+      // /.col-lg-9
+    // /.row
+
+  // /.container

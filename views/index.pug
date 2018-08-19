@@ -1,0 +1,32 @@
+extends layout.pug
+
+block content
+  // Modal
+  include components/image-modal
+  .container
+    .row
+      .col-lg-3
+        h1.my-4 SuperPhoto
+        // Search widget
+        include components/search-widget
+        // Top places widget
+        include components/top-places-widget
+        // Custom widget
+        include components/custom-widget
+      // /.col-lg-3
+      .col-lg-9
+        include components/image-carousel
+        .row
+          include components/image-card
+          +image-card('http://placehold.it/700x400', 'Photo One')
+          +image-card('http://placehold.it/700x400', 'Photo Two')
+          +image-card('http://placehold.it/700x400', 'Photo Three')
+          +image-card('http://placehold.it/700x400', 'Photo Four')
+          +image-card('http://placehold.it/700x400', 'Photo Five')
+          +image-card('http://placehold.it/700x400', 'Photo Six')
+        include components/pagination
+        // /.row
+      // /.col-lg-9
+    // /.row
+
+  // /.container
