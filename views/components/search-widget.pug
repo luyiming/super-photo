@@ -1,7 +1,26 @@
 .card.my-4
   h5.card-header Search
   .card-body
-    .input-group.input-group-sm
-      input#search-text-input.form-control(type='text', placeholder='Search for...')
-      .input-group-append
-        button#search-text-button.btn.btn-outline-primary(type='button') Search
+    .form-group
+      .input-group.input-group-sm
+        input#search-text-input.form-control(type='text', placeholder='Search for...')
+        .input-group-append
+          button#search-text-button.btn.btn-outline-primary(type='button') Search
+    .form-group
+      label(for='per-page-input') Per Page
+      select#per-page-input.form-control.form-control-sm
+        option(value=15) 15
+        option(value=20, selected) 20
+        option(value=25) 25
+        option(value=30) 30
+        option(value=35) 35
+        option(value=40) 40
+    .form-group
+      label(for='sort-by-input') Sort By
+      select#sort-by-input.form-control.form-control-sm
+        option(value='date-posted-desc') Date Posted - Newest
+        option(value='date-posted-asc') Date Posted - Oldest
+        option(value='date-taken-desc') Date Taken - Newest
+        option(value='date-taken-asc') Date Taken - Newest
+        option(value='interestingness-desc', selected) Most Interesting
+        option(value='interestingness-asc') Least Interesting

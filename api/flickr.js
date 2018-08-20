@@ -299,7 +299,7 @@ exports.search_by_place_id = function (place_id) {
     });
 }
 
-exports.search_by_text = function (text, page, per_page) {
+exports.search_by_text = function (text, page, per_page, sort) {
     /*
     {
         "photos": {
@@ -316,13 +316,14 @@ exports.search_by_text = function (text, page, per_page) {
     }
     */
 
+    sort = sort || 'interestingness-desc';
     let options = {
         qs: {
             method: 'flickr.photos.search',
             api_key: 'c4637e315af68fc28d9fd128833140cd',
             text: text,
             // has_geo: '1',
-            sort: 'interestingness-desc',
+            sort: sort,
             format: 'json',
             per_page: per_page,
             page: page,

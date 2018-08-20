@@ -21,7 +21,7 @@ router.get('/get_top_places', function (req, res, next) {
 });
 
 router.get('/search_by_text', function (req, res) {
-    flickr.search_by_text(req.query.text, req.query.page, req.query.per_page)
+    flickr.search_by_text(req.query.text, req.query.page, req.query.per_page, req.query.sort)
         .then(photos => {
             // console.log(JSON.stringify(photos));
 
