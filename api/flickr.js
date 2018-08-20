@@ -1,6 +1,6 @@
 let request = require('request');
 
-let get_top_places = function get_top_places(count) {
+exports.get_top_places = function (count) {
 
     /*
     place_type_id (Required)
@@ -44,4 +44,44 @@ let get_top_places = function get_top_places(count) {
     });
 }
 
-exports.get_top_places = get_top_places;
+exports.search_by_place_id = function (place_id) {
+    let options = {
+        qs: {
+            method: 'flickr.photos.search',
+            api_key: 'c4637e315af68fc28d9fd128833140cd',
+            place_id: place_id,
+            has_geo: '1',
+            format: 'json',
+            per_page: 10,
+            page: 1,
+            nojsoncallback: '1'
+        },
+        proxy: 'http://127.0.0.1:1087',
+        json: true
+    };
+    /*
+    { "photos": { "page": "1", "pages": "944", "perpage": 10, "total": "9438",
+    "photo": [
+      { "id": "43384198384", "owner": "46929404@N08", "secret": "8930633d8e", "server": "1811", "farm": 2, "title": "365-18-220: Zaporizhian Sich", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "43384197024", "owner": "46929404@N08", "secret": "f85aca944c", "server": "1891", "farm": 2, "title": "365-18-222: Quenching Thirst", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "43338986754", "owner": "68436459@N05", "secret": "52dbc5e283", "server": "1840", "farm": 2, "title": "DSCF4496", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "44057505201", "owner": "68436459@N05", "secret": "9face4b3d0", "server": "1775", "farm": 2, "title": "DSCF4485", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "28832603547", "owner": "68436459@N05", "secret": "d897121bf7", "server": "1812", "farm": 2, "title": "Kitty", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "41960126690", "owner": "68436459@N05", "secret": "4c05ce80b0", "server": "932", "farm": 1, "title": "Snezhinka", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "41960124070", "owner": "68436459@N05", "secret": "36baace2cf", "server": "1817", "farm": 2, "title": "Umbr", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "43052352494", "owner": "68436459@N05", "secret": "88a665feb3", "server": "1820", "farm": 2, "title": "Blackberry 2", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "41960120380", "owner": "68436459@N05", "secret": "8bd7df59dc", "server": "1836", "farm": 2, "title": "Blackberry 1", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+      { "id": "29892526698", "owner": "128795527@N06", "secret": "12f754d8bc", "server": "1832", "farm": 2, "title": "IMG_20180731_113132", "ispublic": 1, "isfriend": 0, "isfamily": 0 }
+    ] }, "stat": "ok" }
+    */
+    return new Promise((resolve, reject) => {
+        request('https://api.flickr.com/services/rest', options, (err, res, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(body);
+                resolve(body);
+            }
+        });
+    });
+}
