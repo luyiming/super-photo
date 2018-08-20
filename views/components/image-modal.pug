@@ -6,12 +6,13 @@
         button.close(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-        img.card-img-top(src= modal_photo ? modal_photo['src'] : 'http://placehold.it/1920x1080', alt='')
+        a(target="_blank", href= modal_photo['photo_src'] ? modal_photo['photo_src'] : 'javascript:void(0)')
+          img.card-img-top(src= modal_photo ? modal_photo['src'] : 'http://placehold.it/1920x1080', alt='')
         hr
-        #sp-image-modal-owner.ml-3
-          span.fa.fa-user.mr-2
-          a(href='#')= modal_photo ? modal_photo['owner'] : 'Dzhejna'
-        hr
+        //- #sp-image-modal-owner.ml-3
+        //-   span.fa.fa-user.mr-2
+        //-   a(href='#')= modal_photo ? modal_photo['owner'] : 'Dzhejna'
+        //- hr
         #sp-image-modal-place
           span.fa.fa-map-marker-alt.mr-2.ml-3
           if modal_photo

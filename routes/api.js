@@ -42,11 +42,12 @@ router.get('/search_by_text', function (req, res) {
 router.get('/get_image_modal', function (req, res) {
     flickr.get_photo_info(req.query.photo_id)
         .then(info => {
-            // console.log(JSON.stringify(info));
+            console.log(JSON.stringify(info, null,2));
             modal_photo = {};
             modal_photo['src'] = flickr.get_photo_url(info['photo']);
             modal_photo['owner'] = info['photo']['owner']['realname'] || info['photo']['owner']['username'];
             modal_photo['title'] = info['photo']['title']['_content'] || 'Photo';
+            modal_photo['photo_src'] = info['photo']['urls'] ? info['photo']['urls']['url'][0]['_content'] : undefined;
 
             modal_photo['tags'] = [];
 
@@ -58,6 +59,9 @@ router.get('/get_image_modal', function (req, res) {
             if (info['photo']['location']) {
                 if (info['photo']['location']['locality']) {
                     modal_photo['places'].push(info['photo']['location']['locality']['_content']);
+                }
+                if (info['photo']['location']['county']) {
+                    modal_photo['places'].push(info['photo']['location']['county']['_content']);
                 }
                 if (info['photo']['location']['region']) {
                     modal_photo['places'].push(info['photo']['location']['region']['_content']);
