@@ -1,0 +1,14 @@
+each photo in photos_gallery
+  .hovereffect.mb-3
+    img.img-fluid(src= photo['url'], alt='')
+    .overlay
+      .btn-group.btn-group-sm
+        button.btn.btn-outline-secondary(type='button') Show
+        button.btn.btn-outline-secondary(type='button') Edit
+      .icon-links
+        a(href='#')
+          span.fa.fa-twitter.fa-lg.mr-1
+        a(href='#')
+          span.fa.fa-facebook.fa-lg.mx-1
+        a(href='#')
+          span.fa.fa-instagram.fa-lg.ml-1

@@ -122,6 +122,142 @@ exports.get_popular_photos = function (count) {
     });
 }
 
+exports.get_photo_info = function (photo_id) {
+    /*
+    {
+        "photo": {
+            "id": "29892526478",
+            "secret": "b7152eef6e",
+            "server": "1776",
+            "farm": 2,
+            "dateuploaded": "1533047076",
+            "isfavorite": 0,
+            "license": 0,
+            "safety_level": 0,
+            "rotation": 0,
+            "originalsecret": "a443fff49c",
+            "originalformat": "jpg",
+            "owner": {
+                "nsid": "128795527@N06",
+                "username": "Dzhejna",
+                "realname": "Dzhejna",
+                "location": "",
+                "iconserver": "1807",
+                "iconfarm": 2,
+                "path_alias": ""
+            },
+            "title": {
+                "_content": "IMG_20180731_113144"
+            },
+            "description": {
+                "_content": ""
+            },
+            "visibility": {
+                "ispublic": 1,
+                "isfriend": 0,
+                "isfamily": 0
+            },
+            "dates": {
+                "posted": "1533047076",
+                "taken": "2018-07-31 11:31:44",
+                "takengranularity": 0,
+                "takenunknown": 0,
+                "lastupdate": "1533047085"
+            },
+            "views": 10,
+            "editability": {
+                "cancomment": 0,
+                "canaddmeta": 0
+            },
+            "publiceditability": {
+                "cancomment": 1,
+                "canaddmeta": 0
+            },
+            "usage": {
+                "candownload": 1,
+                "canblog": 0,
+                "canprint": 0,
+                "canshare": 1
+            },
+            "comments": {
+                "_content": 0
+            },
+            "notes": {
+                "note": [
+
+                ]
+            },
+            "people": {
+                "haspeople": 0
+            },
+            "tags": {
+                "tag": [
+
+                ]
+            },
+            "location": {
+                "latitude": 47.492275,
+                "longitude": 36.171675,
+                "accuracy": 16,
+                "context": 0,
+                "locality": {
+                    "_content": "Pologi",
+                    "place_id": "nPiyCI9YUbv8SNQ",
+                    "woeid": "931341"
+                },
+                "region": {
+                    "_content": "Zaporizhia Oblast",
+                    "place_id": "th8cXf5TUb4TrcYb",
+                    "woeid": "2347557"
+                },
+                "country": {
+                    "_content": "Ukraine",
+                    "place_id": "sw.0lC9TUb5azUREDQ",
+                    "woeid": "23424976"
+                },
+                "place_id": "nPiyCI9YUbv8SNQ",
+                "woeid": "931341"
+            },
+            "geoperms": {
+                "ispublic": 1,
+                "iscontact": 0,
+                "isfriend": 0,
+                "isfamily": 0
+            },
+            "urls": {
+                "url": [{
+                    "type": "photopage",
+                    "_content": "https:\/\/www.flickr.com\/photos\/128795527@N06\/29892526478\/"
+                }]
+            },
+            "media": "photo"
+        },
+        "stat": "ok"
+    }
+    */
+    let options = {
+        qs: {
+            method: 'flickr.photos.getInfo',
+            api_key: 'c4637e315af68fc28d9fd128833140cd',
+            photo_id: photo_id,
+            format: 'json',
+            nojsoncallback: '1'
+        },
+        proxy: 'http://127.0.0.1:1087',
+        json: true
+    };
+
+    return new Promise((resolve, reject) => {
+        request('https://api.flickr.com/services/rest', options, (err, res, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(body);
+            }
+        });
+    });
+}
+
 exports.search_by_place_id = function (place_id) {
     let options = {
         qs: {
@@ -157,7 +293,50 @@ exports.search_by_place_id = function (place_id) {
             if (err) {
                 reject(err);
             } else {
-                console.log(body);
+                resolve(body);
+            }
+        });
+    });
+}
+
+exports.search_by_text = function (text, page, per_page) {
+    /*
+    {
+        "photos": {
+            "page": "1",
+            "pages": "944",
+            "perpage": 10,
+            "total": "9438",
+            "photo": [
+                { "id": "43384198384", "owner": "46929404@N08", "secret": "8930633d8e", "server": "1811", "farm": 2, "title": "365-18-220: Zaporizhian Sich", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+                { "id": "43384197024", "owner": "46929404@N08", "secret": "f85aca944c", "server": "1891", "farm": 2, "title": "365-18-222: Quenching Thirst", "ispublic": 1, "isfriend": 0, "isfamily": 0 },
+            ]
+        },
+        "stat": "ok"
+    }
+    */
+
+    let options = {
+        qs: {
+            method: 'flickr.photos.search',
+            api_key: 'c4637e315af68fc28d9fd128833140cd',
+            text: text,
+            // has_geo: '1',
+            sort: 'interestingness-desc',
+            format: 'json',
+            per_page: 10,
+            page: 1,
+            nojsoncallback: '1'
+        },
+        proxy: 'http://127.0.0.1:1087',
+        json: true
+    };
+
+    return new Promise((resolve, reject) => {
+        request('https://api.flickr.com/services/rest', options, (err, res, body) => {
+            if (err) {
+                reject(err);
+            } else {
                 resolve(body);
             }
         });
