@@ -1,14 +1,14 @@
 each photo in photos_gallery
   .hovereffect.mb-3
-    img.img-fluid(src= photo['url'], alt='')
+    img.img-fluid(src= photo['url'], data-id= photo['id'])
     .overlay
       .btn-group.btn-group-sm
-        button.btn.btn-outline-secondary(type='button') Show
+        button.btn.btn-outline-secondary(type='button').image-show-button Show
         button.btn.btn-outline-secondary(type='button') Edit
       .icon-links
         a(href='#')
-          span.fa.fa-twitter.fa-lg.mr-1
+          span.fab.fa-twitter.fa-lg.mr-1
         a(href='#')
-          span.fa.fa-facebook.fa-lg.mx-1
+          span.fab.fa-facebook.fa-lg.mx-1
         a(href='#')
-          span.fa.fa-instagram.fa-lg.ml-1
+          span.fab.fa-instagram.fa-lg.ml-1

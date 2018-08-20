@@ -58,3 +58,8 @@ body {
     column-count: 1;
   }
 }
+
+.sp-image-modal-place-item:not(:last-child)::after {
+  content: '/';
+  padding: 6px;
+}

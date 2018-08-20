@@ -2,11 +2,38 @@
   .modal-dialog.modal-dialog-centered.modal-lg(role='document')
     .modal-content
       .modal-header
-        h5#sp-image-modal-title.modal-title Photo title
+        h5#sp-image-modal-title.modal-title= modal_photo ? modal_photo['title'] : 'Photo Title'
         button.close(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-        img.card-img-top(src='http://placehold.it/1920x1080', alt='')
+        img.card-img-top(src= modal_photo ? modal_photo['src'] : 'http://placehold.it/1920x1080', alt='')
+        hr
+        #sp-image-modal-owner.ml-3
+          span.fa.fa-user.mr-2
+          a(href='#')= modal_photo ? modal_photo['owner'] : 'Dzhejna'
+        hr
+        #sp-image-modal-place
+          span.fa.fa-map-marker-alt.mr-2.ml-3
+          if modal_photo
+            each place in modal_photo['places']
+              span.sp-image-modal-place-item
+                a.searchable-item(href='#')= place
+          else
+            span.sp-image-modal-place-item
+              a.searchable-item(href='#') Pologi
+            span.sp-image-modal-place-item
+              a.searchable-item(href='#') Zaporizhia Oblast
+            span.sp-image-modal-place-item
+              a.searchable-item(href='#') Ukraine
+        hr
+        #sp-image-modal-tags.d-flex.flex-wrap.ml-3
+          span.fa.fa-tags.mr-1
+          if modal_photo
+            each tag in modal_photo['tags']
+              a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1= tag
+          else
+            a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1 tag1
+            a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1 tag1
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
         button.btn.btn-primary(type='button') Save changes
