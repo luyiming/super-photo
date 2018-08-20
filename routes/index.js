@@ -5,7 +5,16 @@ let flickr = require('../api/flickr');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index');
+  flickr.get_popular_photos(3)
+    .then(photos => {
+      // console.log(JSON.stringify(photos, null, 2));
+      let carousel = [];
+      for (let i = 0; i < 3; i++) {
+        carousel.push(flickr.get_photo_url(photos['photos']['photo'][i]));
+      }
+      res.locals.carousel = carousel;
+      res.render('index');
+    });
 });
 
 module.exports = router;

@@ -7,7 +7,7 @@ router.get('/get_top_places', function (req, res, next) {
     let total = req.query.total || 10;
     flickr.get_top_places(total)
         .then(places => {
-            console.log(JSON.stringify(places));
+            // console.log(JSON.stringify(places));
             res.render('components/top-places-widget-list', {
                 places: places
             });

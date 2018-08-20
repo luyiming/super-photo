@@ -5,11 +5,11 @@
     li(data-target='#sp-image-carousel', data-slide-to='2')
   .carousel-inner(role='listbox')
     .carousel-item.active
-      img.d-block.img-fluid(src='http://placehold.it/900x350', alt='First slide')
+      img.d-block.img-fluid(src=carousel?carousel[0]:'http://placehold.it/900x350', alt='First slide', style='width: 900px; height: 350px; object-fit: cover')
     .carousel-item
-      img.d-block.img-fluid(src='http://placehold.it/900x350', alt='Second slide')
+      img.d-block.img-fluid(src=carousel?carousel[1]:'http://placehold.it/900x350', alt='Second slide', style='width: 900px; height: 350px; object-fit: cover')
     .carousel-item
-      img.d-block.img-fluid(src='http://placehold.it/900x350', alt='Third slide')
+      img.d-block.img-fluid(src=carousel?carousel[2]:'http://placehold.it/900x350', alt='Third slide', style='width: 900px; height: 350px; object-fit: cover')
   a.carousel-control-prev(href='#sp-image-carousel', role='button', data-slide='prev')
     span.carousel-control-prev-icon(aria-hidden='true')
     span.sr-only Previous

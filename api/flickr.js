@@ -1,7 +1,14 @@
 let request = require('request');
 
-exports.get_top_places = function (count) {
+exports.get_photo_url = function (photo) {
+    let farm = photo['farm'];
+    let server = photo['server'];
+    let secret = photo['secret'];
+    let id = photo['id'];
+    return 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_b.jpg'
+}
 
+exports.get_top_places = function (count) {
     /*
     place_type_id (Required)
         22: neighbourhood
@@ -39,6 +46,77 @@ exports.get_top_places = function (count) {
                 // console.log(date_stop);
                 // console.log(stat);
                 resolve(places);
+            }
+        });
+    });
+}
+
+
+exports.get_popular_photos = function (count) {
+    /*
+    {
+        "photos": {
+            "page": 2,
+            "pages": 1,
+            "perpage": 3,
+            "total": 3,
+            "photo": [{
+                    "id": "40730855025",
+                    "owner": "38422061@N04",
+                    "secret": "a1f48758a4",
+                    "server": "936",
+                    "farm": 1,
+                    "title": "Into the Blue",
+                    "ispublic": 1,
+                    "isfriend": 0,
+                    "isfamily": 0
+                },
+                {
+                    "id": "40653052124",
+                    "owner": "38422061@N04",
+                    "secret": "ea62342afc",
+                    "server": "875",
+                    "farm": 1,
+                    "title": "Formation",
+                    "ispublic": 1,
+                    "isfriend": 0,
+                    "isfamily": 0
+                },
+                {
+                    "id": "40585865245",
+                    "owner": "38422061@N04",
+                    "secret": "6d75bfa5c0",
+                    "server": "798",
+                    "farm": 1,
+                    "title": "Fire & Ice",
+                    "ispublic": 1,
+                    "isfriend": 0,
+                    "isfamily": 0
+                }
+            ]
+        },
+        "stat": "ok"
+    }
+    */
+    let options = {
+        qs: {
+            method: 'flickr.photos.getPopular',
+            api_key: 'c4637e315af68fc28d9fd128833140cd',
+            user_id: '38422061@N04',
+            format: 'json',
+            nojsoncallback: 1,
+            page: 2,
+            per_page: count || 3
+        },
+        proxy: 'http://127.0.0.1:1087',
+        json: true
+    };
+    return new Promise((resolve, reject) => {
+        request('https://api.flickr.com/services/rest', options, (err, res, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(body);
             }
         });
     });
