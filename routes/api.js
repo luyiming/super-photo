@@ -30,7 +30,7 @@ router.get('/search_by_text', function (req, res) {
 
             res.locals.photos_gallery = photos['photos']['photo'];
             for (let i = 0; i < res.locals.photos_gallery.length; i++) {
-                res.locals.photos_gallery[i]['url'] = flickr.get_photo_url(res.locals.photos_gallery[i]);
+                res.locals.photos_gallery[i]['url'] = flickr.get_photo_url_small(res.locals.photos_gallery[i]);
             }
             res.render('components/image-card-list');
         })

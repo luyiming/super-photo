@@ -8,6 +8,14 @@ exports.get_photo_url = function (photo) {
     return 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_b.jpg'
 }
 
+exports.get_photo_url_small = function (photo) {
+    let farm = photo['farm'];
+    let server = photo['server'];
+    let secret = photo['secret'];
+    let id = photo['id'];
+    return 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_m.jpg'
+}
+
 exports.get_top_places = function (count) {
     /*
     place_type_id (Required)

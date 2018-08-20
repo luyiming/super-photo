@@ -1,13 +1,13 @@
 nav
   ul.pagination.justify-content-center
     li.page-item(class={disabled: pages_info['current'] === 1})
-      a(href='javascript:void(0)').page-link(aria-label="Previous", data-page= '1')
+      a.page-link(href='javascript:void(0)', aria-label="Previous", data-page= '1')
         span(aria-hidden="true") &laquo;
         span.sr-only Previous
     each page in pages_info['pages']
       li.page-item(class={active: page === pages_info['current']})
-        a(href='javascript:void(0)').page-link(data-page= page)= page
+        a.page-link(href='javascript:void(0)', data-page= page)= page
     li.page-item(class={disabled: pages_info['current'] === pages_info['pages']})
-      a(href='javascript:void(0)').page-link(aria-label="Next", data-page= pages_info['total'])
+      a.page-link(href='javascript:void(0)', aria-label="Next", data-page= pages_info['total'])
         span(aria-hidden="true") &raquo;
         span.sr-only Next

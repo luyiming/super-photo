@@ -75,7 +75,7 @@ function do_text_search(text, page, per_page) {
                 per_page: per_page,
                 sort: $('#sort-by-input').val(),
                 has_geo: $('#has-geo-check').is(":checked") ? 1 : 0,
-                in_gallery: $('in-gallery-check').is(":checked") ? 1 : 0,
+                in_gallery: $('#in-gallery-check').is(":checked") ? 1 : 0,
             }
         })
         .done(photo_list => {
