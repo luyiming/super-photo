@@ -299,7 +299,7 @@ exports.search_by_place_id = function (place_id) {
     });
 }
 
-exports.search_by_text = function (text, page, per_page, sort) {
+exports.search_by_text = function (text, page, per_page, sort, has_geo, in_gallery) {
     /*
     {
         "photos": {
@@ -317,18 +317,30 @@ exports.search_by_text = function (text, page, per_page, sort) {
     */
 
     sort = sort || 'interestingness-desc';
+
+    qs = {
+        method: 'flickr.photos.search',
+        api_key: 'c4637e315af68fc28d9fd128833140cd',
+        text: text,
+        // has_geo: '1',
+        sort: sort,
+        format: 'json',
+        per_page: per_page,
+        page: page,
+        nojsoncallback: '1',
+    };
+
+    if (has_geo == 1) {
+        qs['has_geo'] = 1;
+    }
+    if (in_gallery == 1) {
+        qs['in_gallery'] = 1;
+    }
+
+    console.log(JSON.stringify(qs, null, 2));
+
     let options = {
-        qs: {
-            method: 'flickr.photos.search',
-            api_key: 'c4637e315af68fc28d9fd128833140cd',
-            text: text,
-            // has_geo: '1',
-            sort: sort,
-            format: 'json',
-            per_page: per_page,
-            page: page,
-            nojsoncallback: '1'
-        },
+        qs: qs,
         proxy: 'http://127.0.0.1:1087',
         json: true
     };
