@@ -324,8 +324,8 @@ exports.search_by_text = function (text, page, per_page) {
             // has_geo: '1',
             sort: 'interestingness-desc',
             format: 'json',
-            per_page: 10,
-            page: 1,
+            per_page: per_page,
+            page: page,
             nojsoncallback: '1'
         },
         proxy: 'http://127.0.0.1:1087',

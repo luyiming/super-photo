@@ -1,6 +1,3 @@
-var g_page = 1;
-var g_per_page = 30;
-
 $(document).ready(function () {
     $.ajax('api/get_top_places', {
             data: {
@@ -13,8 +10,9 @@ $(document).ready(function () {
             $('#top-places-list').append(places_list);
 
             $('.searchable-item').click(function () {
-                do_text_search($(this).text(), 1, 20);
+                do_text_search($(this).text(), 1, 30);
             });
+
         })
         .fail(err => {
             console.log('get_top_places error:');
@@ -22,8 +20,29 @@ $(document).ready(function () {
         });
 
     do_text_search('mountain', 1, 20);
-
 });
+
+function get_pagination() {
+    $.ajax('api/get_pagination')
+        .done(pagination => {
+            $('#sp-pagination').html(pagination);
+
+            $('.page-link').click(function () {
+                let page = $(this).data('page');
+                let per_page = 30;
+                let text = $('#search-text-input').val() || 'mountain';
+                console.log('a.page-link');
+                console.log(page);
+                console.log(per_page);
+                console.log(text);
+                do_text_search(text, page, per_page);
+            });
+        })
+        .fail(err => {
+            console.log('get_top_places error:');
+            console.log(err);
+        });
+}
 
 function get_image_modal(photo_id) {
     $.ajax('api/get_image_modal', {
@@ -36,7 +55,7 @@ function get_image_modal(photo_id) {
             $('#sp-image-modal').modal('show');
 
             $('.searchable-item').click(function () {
-                do_text_search($(this).text(), 1, 20);
+                do_text_search($(this).text(), 1, 30);
                 $('#sp-image-modal').modal('hide');
             });
         })
@@ -47,8 +66,8 @@ function get_image_modal(photo_id) {
 }
 
 function do_text_search(text, page, per_page) {
-    g_page = page;
-    g_per_page = per_page;
+    $('#search-text-input').val(text);
+
     $.ajax('api/search_by_text', {
             data: {
                 text: text,
@@ -63,6 +82,8 @@ function do_text_search(text, page, per_page) {
                 let photo_id = $(this).parent().parent().prev().data('id');
                 get_image_modal(photo_id);
             });
+
+            get_pagination();
         })
         .fail(err => {
             console.log('get_top_places error:');
@@ -71,7 +92,7 @@ function do_text_search(text, page, per_page) {
 }
 
 $('#search-text-button').click(function () {
-    do_text_search($('#search-text-input').val(), 1, 20);
+    do_text_search($('#search-text-input').val(), 1, 30);
 });
 
 $('.image-show-button').click(function () {

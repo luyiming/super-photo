@@ -3,6 +3,9 @@ let router = express.Router();
 let request = require('request');
 let flickr = require('../api/flickr');
 
+var g_page = 1;
+var g_pages = 30;
+
 router.get('/get_top_places', function (req, res, next) {
     let total = req.query.total || 10;
     flickr.get_top_places(total)
@@ -20,7 +23,11 @@ router.get('/get_top_places', function (req, res, next) {
 router.get('/search_by_text', function (req, res) {
     flickr.search_by_text(req.query.text, req.query.page, req.query.per_page)
         .then(photos => {
-            // console.log(JSON.stringify(places));
+            // console.log(JSON.stringify(photos));
+
+            g_page = photos['photos']['page'];
+            g_pages = photos['photos']['pages'];
+
             res.locals.photos_gallery = photos['photos']['photo'];
             for (let i = 0; i < res.locals.photos_gallery.length; i++) {
                 res.locals.photos_gallery[i]['url'] = flickr.get_photo_url(res.locals.photos_gallery[i]);
@@ -69,6 +76,42 @@ router.get('/get_image_modal', function (req, res) {
         .catch(err => {
             res.sendStatus(404);
         });
+});
+
+router.get('/get_pagination', function (req, res) {
+    console.log(g_page);
+    console.log(g_pages);
+
+    let page = [];
+    for (let i = 10; i > 0; i--) {
+        if (g_page - i > 0) {
+            page.push(g_page - i);
+        }
+    }
+    page.push(g_page);
+    for (let i = 1; i < 10; i++) {
+        if (g_page + i <= g_pages) {
+            page.push(g_page + i);
+        }
+    }
+
+    page = page.slice(page.indexOf(g_page) - 3 >= 0 ? page.indexOf(g_page) - 3 : 0);
+    page = page.slice(0, 7);
+
+    while (page.length < 7) {
+        if (page[0] == 1) {
+            break;
+        }
+        page.unshift(page[0] - 1);
+    }
+
+    res.render('components/pagination', {
+        pages_info: {
+            pages: page,
+            current: g_page,
+            total: g_pages,
+        }
+    })
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
 each place in places
     li.list-group-item.d-flex.justify-content-between.align-items-center.py-1
-        a.searchable-item(href='')= place['woe_name']
+        a(href='javascript:void(0)').searchable-item= place['woe_name']
         span.badge.badge-pill(class=place['photo_count'] > 1000 ? 'badge-primary' : 'badge-secondary')= place['photo_count']

@@ -17,23 +17,23 @@
           if modal_photo
             each place in modal_photo['places']
               span.sp-image-modal-place-item
-                a.searchable-item(href='#')= place
+                a(href='javascript:void(0)').searchable-item= place
           else
             span.sp-image-modal-place-item
-              a.searchable-item(href='#') Pologi
+              a(href='javascript:void(0)').searchable-item Pologi
             span.sp-image-modal-place-item
-              a.searchable-item(href='#') Zaporizhia Oblast
+              a(href='javascript:void(0)').searchable-item Zaporizhia Oblast
             span.sp-image-modal-place-item
-              a.searchable-item(href='#') Ukraine
+              a(href='javascript:void(0)').searchable-item Ukraine
         hr
         #sp-image-modal-tags.d-flex.flex-wrap.ml-3
           span.fa.fa-tags.mr-1
           if modal_photo
             each tag in modal_photo['tags']
-              a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1= tag
+              a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1= tag
           else
-            a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1 tag1
-            a.searchable-item.badge.badge-pill.badge-secondary(href='#').mx-1.mb-1 tag1
+            a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1 tag1
+            a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1 tag1
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
         button.btn.btn-primary(type='button') Save changes
