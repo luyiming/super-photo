@@ -1,5 +1,5 @@
-const request = require('request');
-const interval = require('interval-promise');
+let request = require('request');
+let interval = require('interval-promise');
 
 function get_result(submission_id) {
 

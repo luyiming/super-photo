@@ -19,7 +19,9 @@ router.get('/', function (req, res, next) {
         res.locals.styles = styles;
         res.render('index');
       });
-
+    })
+    .catch(err => {
+      res.status(500).send(err).end();
     });
 });
 

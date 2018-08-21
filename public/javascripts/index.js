@@ -90,6 +90,7 @@ function get_pagination() {
 
 function get_image_modal(photo_id) {
     $('.image-show-button').addClass('disabled');
+    $('.image-edit-button').addClass('disabled');
 
     $.ajax('api/get_image_modal', {
             data: {
@@ -98,6 +99,7 @@ function get_image_modal(photo_id) {
         })
         .done(photo_modal => {
             $('.image-show-button').removeClass('disabled');
+            $('.image-edit-button').removeClass('disabled');
             $('#modal-container').html(photo_modal);
             $('#sp-image-modal').modal('show');
 
@@ -108,6 +110,7 @@ function get_image_modal(photo_id) {
         })
         .fail(err => {
             $('.image-show-button').removeClass('disabled');
+            $('.image-edit-button').removeClass('disabled');
             console.log('get_top_places error:');
             console.log(err);
         });
@@ -148,6 +151,8 @@ function do_text_search(text, page, per_page) {
             get_pagination();
         })
         .fail(err => {
+            $('#search-button-spinner').hide();
+            $('#search-text-button').removeClass('disabled');
             console.log('get_top_places error:');
             console.log(err);
         });

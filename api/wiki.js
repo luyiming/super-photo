@@ -1,6 +1,12 @@
 let request = require('request');
 let parseString = require('xml2js').parseString;
 
+if (process.env['use_proxy']) {
+    request = request.defaults({
+        proxy: 'http://127.0.0.1:1087'
+    });
+}
+
 exports.get_wiki_places = function (place_name) {
     place_name = place_name || 'yosemite';
     console.log('get_wiki_places');
@@ -12,8 +18,7 @@ exports.get_wiki_places = function (place_name) {
                 maxRows: 10,
                 username: 'eamondovis'
             },
-            json: true,
-            proxy: 'http://127.0.0.1:1087',
+            json: true
         }, (err, res, body) => {
             if (err) {
                 console.log(err);

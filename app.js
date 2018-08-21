@@ -45,12 +45,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-// flickr.get_top_places(3)
-//   .then(places => {
-//     console.log(JSON.stringify(places, null, 2))
-//   })
-//   .catch(err => {
-//     console.log(err);
-//   });
 
 module.exports = app;

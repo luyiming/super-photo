@@ -1,5 +1,12 @@
 let request = require('request');
 
+if (process.env['use_proxy']) {
+    request = request.defaults({
+        proxy: 'http://127.0.0.1:1087',
+        timeout: 10000
+    });
+}
+
 exports.get_photo_url = function (photo) {
     let farm = photo['farm'];
     let server = photo['server'];
@@ -33,7 +40,6 @@ exports.get_top_places = function (count) {
             format: 'json',
             nojsoncallback: '1'
         },
-        proxy: 'http://127.0.0.1:1087',
         json: true
     };
 
@@ -116,7 +122,6 @@ exports.get_popular_photos = function (count) {
             page: 2,
             per_page: count || 3
         },
-        proxy: 'http://127.0.0.1:1087',
         json: true
     };
     return new Promise((resolve, reject) => {
@@ -251,7 +256,6 @@ exports.get_photo_info = function (photo_id) {
             format: 'json',
             nojsoncallback: '1'
         },
-        proxy: 'http://127.0.0.1:1087',
         json: true
     };
 
@@ -278,7 +282,6 @@ exports.search_by_place_id = function (place_id) {
             page: 1,
             nojsoncallback: '1'
         },
-        proxy: 'http://127.0.0.1:1087',
         json: true
     };
     /*
@@ -349,7 +352,6 @@ exports.search_by_text = function (text, page, per_page, sort, has_geo, in_galle
 
     let options = {
         qs: qs,
-        proxy: 'http://127.0.0.1:1087',
         json: true
     };
 
