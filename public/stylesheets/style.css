@@ -63,3 +63,11 @@ body {
   content: '/';
   padding: 6px;
 }
+
+.sp-edit-modal-style-img:hover {
+  border: 2px solid #007bff;
+}
+
+.sp-edit-modal-style-img-selected {
+  border: 2px solid #007bff;
+}

@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let request = require('request');
 let flickr = require('../api/flickr');
+let deep = require('../api/deep-art-effects');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -13,7 +14,12 @@ router.get('/', function (req, res, next) {
         carousel.push(flickr.get_photo_url(photos['photos']['photo'][i]));
       }
       res.locals.carousel = carousel;
-      res.render('index');
+
+      deep.get_all_styles().then(styles => {
+        res.locals.styles = styles;
+        res.render('index');
+      });
+
     });
 });
 

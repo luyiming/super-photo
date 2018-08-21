@@ -13,6 +13,39 @@ $(document).ready(function () {
                 let per_page = parseInt($('#per-page-input').val());
                 do_text_search($(this).text(), 1, per_page);
             });
+
+            $('#search-text-button').click(function () {
+                let text = $('#search-text-input').val();
+                let per_page = parseInt($('#per-page-input').val());
+                do_text_search(text, 1, per_page);
+            });
+
+            $('.image-edit-button').click(function () {
+                $('#sp-edit-modal').modal('show');
+                let photo_url = $(this).parent().parent().prev().attr('src');
+                photo_url = photo_url.replace('_m.jpg', '_b.jpg');
+                $('#sp-edit-modal-input-img').attr('src', photo_url);
+            })
+
+            $('.image-show-button').click(function () {
+                let photo_id = $(this).parent().parent().prev().data('id');
+                get_image_modal(photo_id);
+            });
+
+            $('.sp-edit-modal-style-img').click(function () {
+                $('.sp-edit-modal-style-img-selected').removeClass('sp-edit-modal-style-img-selected');
+                $(this).addClass('sp-edit-modal-style-img-selected');
+                $('#sp-edit-modal-style-img-selected').attr('src', $(this).attr('src'));
+                $('#sp-edit-modal-style-img-selected').attr('data-style', $(this).attr('data-style'));
+            });
+
+            $('#sp-edit-modal-convert').click(function () {
+                console.log('convert');
+                get_styled_image();
+            });
+
+            $('#sp-edit-modal-convert-spinner').hide();
+
         })
         .fail(err => {
             console.log('get_top_places error:');
@@ -21,6 +54,28 @@ $(document).ready(function () {
 
     do_text_search('mountain', 1, parseInt($('#per-page-input').val()));
 });
+
+function get_styled_image() {
+    $('#sp-edit-modal-convert').addClass('disabled');
+    $('#sp-edit-modal-convert-spinner').show();
+    $.ajax('api/get_styled_image', {
+            data: {
+                photo_url: $('#sp-edit-modal-input-img').attr('src'),
+                style_id: $('#sp-edit-modal-style-img-selected').data('style')
+            }
+        })
+        .done(styled_photo_url => {
+            $('#sp-edit-modal-output-img').attr('src', styled_photo_url);
+            $('#sp-edit-modal-convert').removeClass('disabled');
+            $('#sp-edit-modal-convert-spinner').hide();
+        })
+        .fail(err => {
+            console.log('get_styled_image error:');
+            console.log(err);
+            $('#sp-edit-modal-convert').removeClass('disabled');
+            $('#sp-edit-modal-convert-spinner').hide();
+        });
+}
 
 function get_pagination() {
     $.ajax('api/get_pagination')
@@ -86,6 +141,13 @@ function do_text_search(text, page, per_page) {
                 get_image_modal(photo_id);
             });
 
+            $('.image-edit-button').click(function () {
+                $('#sp-edit-modal').modal('show');
+                let photo_url = $(this).parent().parent().prev().attr('src');
+                photo_url = photo_url.replace('_m.jpg', '_b.jpg');
+                $('#sp-edit-modal-input-img').attr('src', photo_url);
+            })
+
             get_pagination();
         })
         .fail(err => {
@@ -93,14 +155,3 @@ function do_text_search(text, page, per_page) {
             console.log(err);
         });
 }
-
-$('#search-text-button').click(function () {
-    let text = $('#search-text-input').val();
-    let per_page = parseInt($('#per-page-input').val());
-    do_text_search(text, 1, per_page);
-});
-
-$('.image-show-button').click(function () {
-    let photo_id = $(this).parent().parent().prev().data('id');
-    get_image_modal(photo_id);
-});

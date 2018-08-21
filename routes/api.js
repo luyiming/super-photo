@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let request = require('request');
 let flickr = require('../api/flickr');
+let deep = require('../api/deep-art-effects');
 
 var g_page = 1;
 var g_pages = 30;
@@ -42,7 +43,7 @@ router.get('/search_by_text', function (req, res) {
 router.get('/get_image_modal', function (req, res) {
     flickr.get_photo_info(req.query.photo_id)
         .then(info => {
-            console.log(JSON.stringify(info, null,2));
+            console.log(JSON.stringify(info, null, 2));
             modal_photo = {};
             modal_photo['src'] = flickr.get_photo_url(info['photo']);
             modal_photo['owner'] = info['photo']['owner']['realname'] || info['photo']['owner']['username'];
@@ -116,6 +117,21 @@ router.get('/get_pagination', function (req, res) {
             total: g_pages,
         }
     })
+});
+
+router.get('/get_styled_image', function (req, res) {
+
+    deep.transform(req.query.photo_url, req.query.style_id)
+        .then(output_url => {
+            console.log(output_url);
+            res.send(output_url);
+            res.end();
+        })
+        .catch(err => {
+            console.log('final');
+            console.log(err);
+            res.sendStatus(404);
+        });
 });
 
 module.exports = router;

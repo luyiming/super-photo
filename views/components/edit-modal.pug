@@ -1,0 +1,30 @@
+#sp-edit-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='sp-edit-modal-title', aria-hidden='true')
+  .modal-dialog.modal-dialog-centered.modal-lg(role='document')
+    .modal-content
+      .modal-header
+        h5.modal-title Be more creative
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+        .row
+          .col-12.d-flex.align-items-center.justify-content-between
+            img(src='http://placehold.it/1920x1080', alt='', style='max-width: 54%; height: auto')#sp-edit-modal-input-img
+            span.font-weight-bold +
+            img(src= styles[0]['url'], data-style= styles[0]['id'], style='max-width: 35%; height: auto')#sp-edit-modal-style-img-selected
+        hr
+        h5 Chooes a style:
+        .container.p-0(style='height: 200px; width: 100%; overflow: auto;')
+          .row.no-gutters
+            each style, index in styles
+              if index === 0
+                .col-lg-1.col-md-2.col-sm-3
+                  img.img-fluid(src= style['url'], data-style= style['id']).sp-edit-modal-style-img.sp-edit-modal-style-img-selected
+              else
+                .col-lg-1.col-md-2.col-sm-3
+                  img.img-fluid(src= style['url'], data-style= style['id']).sp-edit-modal-style-img
+        hr
+        img.img-fluid#sp-edit-modal-output-img
+      .modal-footer
+        button.btn.btn-secondary(type='button')#sp-edit-modal-download Download
+        button.btn.btn-primary(type='button')#sp-edit-modal-convert Convert
+          i.fa.fa-spinner.refresh-animate.ml-2#sp-edit-modal-convert-spinner
