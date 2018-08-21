@@ -49,26 +49,29 @@
                   tr
                     th(scope='row')= index+1
                     td
-                      img(src=item['thumbnailImg'][0])
+                      img(src=item['thumbnailImg'] ? item['thumbnailImg'][0] : '')
                     td(style='white-space: nowrap')
                       b
-                        a(href=item['wikipediaUrl'][0], target='_blank')= item['title'][0]
+                        a(href=item['wikipediaUrl'] ? item['wikipediaUrl'][0] : '', target='_blank')= item['title'] ? item['title'][0] : ''
                       br
                       //- span FeatureType :
                       each feature in item['feature']
                         if feature != ""
                           span.badge.badge-info= feature
                           br
-                      span Elevation :&nbsp;
-                      span.badge.badge-secondary= item['elevation'][0]
-                      br
-                      span Latitude :&nbsp;
-                      span.badge.badge-secondary= item['lat'][0]
-                      br
-                      span Longitude :&nbsp;
-                      span.badge.badge-secondary= item['lng'][0]
-                      br
-                    td= item['summary'][0]
+                      if item['elevation']
+                        span Elevation :&nbsp;
+                        span.badge.badge-secondary= item['elevation'][0]
+                        br
+                      if item['lat']
+                        span Latitude :&nbsp;
+                        span.badge.badge-secondary= item['lat'][0]
+                        br
+                      if item['lng']
+                        span Longitude :&nbsp;
+                        span.badge.badge-secondary= item['lng'][0]
+                        br
+                    td= item['summary'] ? item['summary'][0] : ''
             footer.text-right.blockquote-footer From&nbsp;
               cite(title='Source Title')
                 a(href="https://www.wikipedia.org/") Wikipedia

@@ -77,6 +77,7 @@ router.get('/get_image_modal', function (req, res) {
             if (modal_photo['places'].length > 0) {
                 wiki_api.get_wiki_places(modal_photo['places'][0])
                     .then(wiki_places => {
+                        // console.log(JSON.stringify(wiki_places,null,2));
                         res.render('components/image-modal', {
                             modal_photo: modal_photo,
                             wiki_places: wiki_places
