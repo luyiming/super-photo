@@ -20,18 +20,6 @@ $(document).ready(function () {
                 do_text_search(text, 1, per_page);
             });
 
-            $('.image-edit-button').click(function () {
-                $('#sp-edit-modal').modal('show');
-                let photo_url = $(this).parent().parent().prev().attr('src');
-                photo_url = photo_url.replace('_m.jpg', '_b.jpg');
-                $('#sp-edit-modal-input-img').attr('src', photo_url);
-            })
-
-            $('.image-show-button').click(function () {
-                let photo_id = $(this).parent().parent().prev().data('id');
-                get_image_modal(photo_id);
-            });
-
             $('.sp-edit-modal-style-img').click(function () {
                 $('.sp-edit-modal-style-img-selected').removeClass('sp-edit-modal-style-img-selected');
                 $(this).addClass('sp-edit-modal-style-img-selected');

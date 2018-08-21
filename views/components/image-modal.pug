@@ -13,8 +13,8 @@
         //-   span.fa.fa-user.mr-2
         //-   a(href='#')= modal_photo ? modal_photo['owner'] : 'Dzhejna'
         //- hr
-        #sp-image-modal-place
-          span.fa.fa-map-marker-alt.mr-2.ml-3
+        #sp-image-modal-place.mb-3
+          span.fa.fa-map-marker-alt.mr-2.ml-1
           if modal_photo
             each place in modal_photo['places']
               span.sp-image-modal-place-item
@@ -27,14 +27,51 @@
             span.sp-image-modal-place-item
               a(href='javascript:void(0)').searchable-item Ukraine
         hr
-        #sp-image-modal-tags.d-flex.flex-wrap.ml-3
-          span.fa.fa-tags.mr-1
+        #sp-image-modal-tags.d-flex.flex-wrap.mb-3
+          span.fa.fa-tags.mr-1.ml-1
           if modal_photo
             each tag in modal_photo['tags']
               a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1= tag
           else
             a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1 tag1
             a(href='javascript:void(0)').searchable-item.badge.badge-pill.badge-secondary.mx-1.mb-1 tag1
+        #sp-image-modal-wiki.mb-3
+          if wiki_places
+            table.table.table-striped.table-hover
+              thead
+                tr
+                  th(scope='col') #
+                  th(scope='col') Thumbnail
+                  th(scope='col') Info
+                  th(scope='col') Summary
+              tbody
+                each item, index in wiki_places
+                  tr
+                    th(scope='row')= index+1
+                    td
+                      img(src=item['thumbnailImg'][0])
+                    td(style='white-space: nowrap')
+                      b
+                        a(href=item['wikipediaUrl'][0], target='_blank')= item['title'][0]
+                      br
+                      //- span FeatureType :
+                      each feature in item['feature']
+                        if feature != ""
+                          span.badge.badge-info= feature
+                          br
+                      span Elevation :&nbsp;
+                      span.badge.badge-secondary= item['elevation'][0]
+                      br
+                      span Latitude :&nbsp;
+                      span.badge.badge-secondary= item['lat'][0]
+                      br
+                      span Longitude :&nbsp;
+                      span.badge.badge-secondary= item['lng'][0]
+                      br
+                    td= item['summary'][0]
+            footer.text-right.blockquote-footer From&nbsp;
+              cite(title='Source Title')
+                a(href="https://www.wikipedia.org/") Wikipedia
       .modal-footer
         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
         button.btn.btn-primary(type='button') Save changes

@@ -3,6 +3,7 @@ let router = express.Router();
 let request = require('request');
 let flickr = require('../api/flickr');
 let deep = require('../api/deep-art-effects');
+let wiki_api = require('../api/wiki');
 
 var g_page = 1;
 var g_pages = 30;
@@ -43,7 +44,7 @@ router.get('/search_by_text', function (req, res) {
 router.get('/get_image_modal', function (req, res) {
     flickr.get_photo_info(req.query.photo_id)
         .then(info => {
-            console.log(JSON.stringify(info, null, 2));
+            // console.log(JSON.stringify(info, null, 2));
             modal_photo = {};
             modal_photo['src'] = flickr.get_photo_url(info['photo']);
             modal_photo['owner'] = info['photo']['owner']['realname'] || info['photo']['owner']['username'];
@@ -73,10 +74,24 @@ router.get('/get_image_modal', function (req, res) {
             }
 
             // console.log(JSON.stringify(modal_photo, null, 2));
-
-            res.render('components/image-modal', {
-                modal_photo: modal_photo
-            });
+            if (modal_photo['places'].length > 0) {
+                wiki_api.get_wiki_places(modal_photo['places'][0])
+                    .then(wiki_places => {
+                        res.render('components/image-modal', {
+                            modal_photo: modal_photo,
+                            wiki_places: wiki_places
+                        });
+                    })
+                    .catch(err => {
+                        res.render('components/image-modal', {
+                            modal_photo: modal_photo,
+                        });
+                    });
+            } else {
+                res.render('components/image-modal', {
+                    modal_photo: modal_photo,
+                });
+            }
         })
         .catch(err => {
             res.sendStatus(404);
