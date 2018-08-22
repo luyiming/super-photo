@@ -11,7 +11,7 @@ $(document).ready(function () {
     });
 
     $('#sp-edit-modal-convert').click(function () {
-        console.log('convert');
+        // $('#sp-edit-modal-output-img').hide();
         get_styled_image();
     });
 
@@ -45,16 +45,19 @@ $(document).ready(function () {
 });
 
 function get_styled_image() {
+    console.log('get_styled_image');
+    console.log('style id: ', $('#sp-edit-modal-style-img-selected').attr('data-style'));
     $('#sp-edit-modal-convert').addClass('disabled');
     $('#sp-edit-modal-convert-spinner').show();
     $.ajax('api/get_styled_image', {
             data: {
                 photo_url: $('#sp-edit-modal-input-img').attr('src'),
-                style_id: $('#sp-edit-modal-style-img-selected').data('style')
+                style_id: $('#sp-edit-modal-style-img-selected').attr('data-style')
             }
         })
         .done(styled_photo_url => {
             $('#sp-edit-modal-output-img').attr('src', styled_photo_url);
+            $('#sp-edit-modal-output-img').show();
             $('#sp-edit-modal-convert').removeClass('disabled');
             $('#sp-edit-modal-convert-spinner').hide();
         })
@@ -72,7 +75,7 @@ function get_pagination() {
             $('#sp-pagination').html(pagination);
 
             $('.page-link').click(function () {
-                let page = $(this).data('page');
+                let page = $(this).attr('data-page');
                 let per_page = parseInt($('#per-page-input').val());
                 let text = $('#search-text-input').val();
                 console.log('a.page-link');
@@ -137,11 +140,13 @@ function do_text_search(text, page, per_page) {
             $('#search-text-button').removeClass('disabled');
 
             $('.image-show-button').click(function () {
-                let photo_id = $(this).parent().parent().prev().data('id');
+                let photo_id = $(this).parent().parent().prev().attr('data-id');
                 get_image_modal(photo_id);
             });
 
             $('.image-edit-button').click(function () {
+                $('#sp-edit-modal-output-img').hide();
+                $('#sp-edit-modal-output-img').attr('src', '');
                 $('#sp-edit-modal').modal('show');
                 let photo_url = $(this).parent().parent().prev().attr('src');
                 photo_url = photo_url.replace('_m.jpg', '_b.jpg');

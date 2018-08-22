@@ -100,8 +100,8 @@ router.get('/get_image_modal', function (req, res) {
 });
 
 router.get('/get_pagination', function (req, res) {
-    console.log(g_page);
-    console.log(g_pages);
+    // console.log(g_page);
+    // console.log(g_pages);
 
     let page = [];
     for (let i = 10; i > 0; i--) {
@@ -139,12 +139,11 @@ router.get('/get_styled_image', function (req, res) {
 
     deep.transform(req.query.photo_url, req.query.style_id)
         .then(output_url => {
-            console.log(output_url);
+            console.log('get_styled_image: output ', output_url);
             res.send(output_url);
             res.end();
         })
         .catch(err => {
-            console.log('final');
             console.log(err);
             res.sendStatus(404);
         });

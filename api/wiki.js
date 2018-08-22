@@ -9,7 +9,9 @@ if (process.env['use_proxy']) {
 
 exports.get_wiki_places = function (place_name) {
     place_name = place_name || 'yosemite';
-    console.log('get_wiki_places');
+
+    // console.log('get_wiki_places');
+
     return new Promise((resolve, reject) => {
         request.get({
             url: 'http://api.geonames.org/wikipediaSearch',

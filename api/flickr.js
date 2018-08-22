@@ -348,7 +348,7 @@ exports.search_by_text = function (text, page, per_page, sort, has_geo, in_galle
         qs['in_gallery'] = 1;
     }
 
-    console.log(JSON.stringify(qs, null, 2));
+    // console.log(JSON.stringify(qs, null, 2));
 
     let options = {
         qs: qs,

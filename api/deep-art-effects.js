@@ -15,7 +15,7 @@ function get_result(submission_id) {
             json: true
         }, (err, res, body) => {
             if (err) {
-                console.error('request failed:', err);
+                console.log('request failed:', err);
                 reject(err);
                 return;
             }
@@ -36,7 +36,7 @@ exports.transform = function (photo_url, style_id) {
             encoding: 'base64'
         }, (err, res, base64_img) => {
             if (err) {
-                console.error('request failed:', err);
+                console.log('request failed:', err);
                 reject(err);
                 return;
             }
@@ -54,13 +54,13 @@ exports.transform = function (photo_url, style_id) {
                 }
             }, async (err, res, body) => {
                 if (err) {
-                    console.error('request failed:', err);
+                    console.log('request failed:', err);
                     reject(err);
                     return;
                 }
 
-                console.log('upload');
-                console.log(JSON.stringify(body));
+                console.log('deep-art-effects: start upload');
+                console.log('deep-art-effects: ', JSON.stringify(body));
 
                 let submission_id = body['submissionId'];
 
@@ -68,7 +68,7 @@ exports.transform = function (photo_url, style_id) {
 
                     await delay(1000);
 
-                    console.log(new Date());
+                    console.log('deep-art-effects: try get status ', new Date());
 
                     let result = await get_result(submission_id);
 
@@ -119,7 +119,7 @@ exports.get_all_styles = function () {
             json: true
         }, (err, res, styles) => {
             if (err) {
-                console.error('request failed:', err);
+                console.log('request failed:', err);
                 reject(err);
                 return;
             }
